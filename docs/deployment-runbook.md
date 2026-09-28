@@ -84,10 +84,21 @@ Microsoft's [pipeline extension guide](https://learn.microsoft.com/power-platfor
 
 ## 5. Prepare the solution source
 
-The committed `solutions/LabPipelineDemo` folder is a blank seed created with PAC CLI. To create a useful demonstration component:
+The committed `solutions/LabPipelineDemo` folder is a blank seed created with PAC CLI. To create a useful demonstration component, first create the solution in Dev, then run the helper. It requires typing the full environment URL and confirming the active PAC organization, creates one table only if absent, and will not change a pre-existing table.
+
+```powershell
+pac auth create --environment <DEV_URL>
+pac org who
+./scripts/New-SampleTable.ps1 `
+  -EnvironmentUrl <DEV_URL> `
+  -SolutionUniqueName <SOLUTION_UNIQUE_NAME> `
+  -PublisherPrefix <PUBLISHER_PREFIX>
+```
+
+Then:
 
 1. Create the solution in Dev using the unique name and publisher prefix from the manifest.
-2. Add a simple component, such as a Dataverse table with a safe synthetic-data purpose.
+2. Add the helper-created sample table to the solution (the helper uses the documented `MSCRM.SolutionUniqueName` header when creating the table).
 3. Export it as unmanaged from Dev and unpack it to replace the seed source folder.
 4. Review the source diff for environment URLs, connection IDs, credentials, or tenant-specific metadata.
 5. Update solution version and commit the source through a pull request.
