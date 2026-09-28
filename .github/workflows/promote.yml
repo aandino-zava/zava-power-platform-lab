@@ -41,7 +41,7 @@ jobs:
       - name: Install Power Platform CLI
         shell: pwsh
         run: |
-          dotnet tool install --global Microsoft.PowerApps.CLI.Tool
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool --version 2.12.2
           "${env:USERPROFILE}\.dotnet\tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Authenticate and import source to Dev
         shell: pwsh
