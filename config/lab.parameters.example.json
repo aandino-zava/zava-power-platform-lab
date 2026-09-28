@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "labPrefix": "REPLACE_ME",
+  "location": "REPLACE_ME",
+  "currencyName": "USD",
+  "languageName": "English",
+  "environments": {
+    "defaultName": "Default",
+    "devName": "REPLACE_ME Dev",
+    "uatName": "REPLACE_ME UAT",
+    "prodName": "REPLACE_ME Prod",
+    "pipelineHostName": "REPLACE_ME Pipelines Host",
+    "devType": "Sandbox",
+    "uatType": "Sandbox",
+    "prodType": "Production",
+    "pipelineHostType": "Production"
+  },
+  "groups": {
+    "admins": "REPLACE_ME-Admins",
+    "makers": "REPLACE_ME-Makers",
+    "approvers": "REPLACE_ME-Approvers",
+    "environmentAccess": "REPLACE_ME-Environment-Access"
+  },
+  "environmentGroups": {
+    "nonProd": "REPLACE_ME NonProd",
+    "prod": "REPLACE_ME Prod"
+  },
+  "dlpPolicies": {
+    "default": "REPLACE_ME - Default Productivity",
+    "nonProd": "REPLACE_ME - NonProd Demo Flexibility",
+    "prod": "REPLACE_ME - Prod Guardrails"
+  },
+  "pipeline": {
+    "name": "REPLACE_ME Dev to UAT to Prod",
+    "uatStageName": "UAT",
+    "prodStageName": "Prod",
+    "requireProductionPreDeploymentStep": true
+  },
+  "solution": {
+    "displayName": "Lab Pipeline Demo",
+    "uniqueName": "LabPipelineDemo",
+    "publisherName": "LabPublisher",
+    "publisherPrefix": "lab",
+    "version": "1.0.0.0",
+    "sampleTableLogicalName": "lab_releaserecord"
+  },
+  "copilotStudio": {
+    "keepAiFeaturesEnabled": true,
+    "keepPreviewFeaturesEnabled": true
+  },
+  "safety": {
+    "neverDeleteExistingEnvironments": true,
+    "neverMoveExistingAgents": true,
+    "requireExplicitApplySwitch": true
+  }
+}
+
