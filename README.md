@@ -20,15 +20,15 @@ A customer-neutral starter repository for a demo-friendly, governed Power Platfo
 |---|---|
 | `config/lab.parameters.example.json` | Customer inputs for names, region, group names, solution identity, and pipeline stages. |
 | `scripts/` | Configuration validation, environment creation with explicit `-WhatIf`/confirmation support, and guided setup helpers. |
-| `solutions/LabPipelineDemo/` | Minimal unpacked solution source for the pipeline demonstration. |
+| `solutions/LabPipelineDemo/` | Blank unmanaged solution seed; add a demo component in Dev and replace it with exported/unpacked source before release. |
 | `.github/workflows/` | CI and manually dispatched promotion workflow. |
-| `docs/` | Blog-style architecture explanation and operator runbook. |
+| `docs/` | Blog-style architecture explanation, approval-flow blueprint, and operator runbook. |
 
 ## Start here
 
 1. Read [`docs/architecture-and-rationale.md`](docs/architecture-and-rationale.md).
 2. Copy `config/lab.parameters.example.json` to `config/lab.parameters.json` and replace every `REPLACE_ME` value. The customer file is git-ignored.
-3. Review [the deployment runbook](docs/deployment-runbook.md), especially prerequisites and manual PPAC steps.
+3. Review [the approval-flow blueprint](docs/approval-flow-spec.md) and [the deployment runbook](docs/deployment-runbook.md), especially prerequisites and manual PPAC steps.
 4. Run `pwsh ./scripts/Validate-Config.ps1 -Path ./config/lab.parameters.json` before any tenant operation.
 5. Use a dedicated admin identity for initial setup. `Provision-Environments.ps1` can create missing environments only; it never modifies a matching existing environment. Other governance settings remain guided PPAC steps.
 6. Configure GitHub Actions secrets/variables and the protected `uat` and `prod` GitHub Environments as described in the runbook.
