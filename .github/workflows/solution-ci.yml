@@ -27,11 +27,12 @@ jobs:
         run: |
           $required = @('README.md','docs/architecture-and-rationale.md','docs/deployment-runbook.md','config/lab.parameters.example.json')
           foreach ($file in $required) { if (-not (Test-Path $file)) { throw "Missing required file: $file" } }
+          [xml]$solution = Get-Content solutions/LabPipelineDemo/src/Other/Solution.xml -Raw
+          if ($solution.ImportExportXml.SolutionManifest.UniqueName -ne 'LabPipelineDemo') { throw 'Unexpected solution unique name.' }
       - name: Check that no customer config or secret-like file is tracked
         shell: pwsh
         run: |
           $tracked = git ls-files
           if ($tracked -contains 'config/lab.parameters.json') { throw 'Customer parameters must not be committed.' }
           if ($tracked | Where-Object { $_ -match '(^|/)(\.env|.*token_cache.*|.*\.snk)$' }) { throw 'Potential credential file is tracked.' }
-
 
