@@ -1,0 +1,23 @@
+# Customer-specific parameters and credentials
+config/lab.parameters.json
+.env
+*.token
+*.token_cache*
+*.snk
+
+# Generated packages and temporary files
+artifacts/
+*.zip
+*.msapp
+*.log
+*.tmp
+
+# Local tooling
+.venv/
+.tools/
+.dataverse/
+__pycache__/
+*.pyc
+plugins/**/bin/
+plugins/**/obj/
+
