@@ -1,0 +1,37 @@
+name: Solution source validation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate customer-neutral configuration template
+        shell: pwsh
+        run: |
+          $template = Get-Content config/lab.parameters.example.json -Raw | ConvertFrom-Json
+          if ($template.safety.neverDeleteExistingEnvironments -ne $true) { throw 'Unsafe environment deletion invariant.' }
+          if ($template.safety.neverMoveExistingAgents -ne $true) { throw 'Unsafe agent movement invariant.' }
+          if ($template.pipeline.requireProductionPreDeploymentStep -ne $true) { throw 'Production gate must be enabled.' }
+          Write-Host 'Template safety invariants passed.'
+      - name: Check required repository files
+        shell: pwsh
+        run: |
+          $required = @('README.md','docs/architecture-and-rationale.md','docs/deployment-runbook.md','config/lab.parameters.example.json')
+          foreach ($file in $required) { if (-not (Test-Path $file)) { throw "Missing required file: $file" } }
+      - name: Check that no customer config or secret-like file is tracked
+        shell: pwsh
+        run: |
+          $tracked = git ls-files
+          if ($tracked -contains 'config/lab.parameters.json') { throw 'Customer parameters must not be committed.' }
+          if ($tracked | Where-Object { $_ -match '(^|/)(\.env|.*token_cache.*|.*\.snk)$' }) { throw 'Potential credential file is tracked.' }
+
+
